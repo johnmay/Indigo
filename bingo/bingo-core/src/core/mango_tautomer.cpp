@@ -118,9 +118,9 @@ void MangoTautomer::_validateQueryData ()
    {
       QS_DEF(Array<int>, gross);
 
-      GrossFormula::collect(_query.ref(), gross);
+      MoleculeGrossFormula::collect(_query.ref(), gross);
       gross[ELEM_H] = 0;
-      GrossFormula::toString(gross, _query_gross_str);
+      MoleculeGrossFormula::toString(gross, _query_gross_str);
    }
    _query_data_valid = true;
 }

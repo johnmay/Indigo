@@ -41,7 +41,7 @@ IndigoGross::~IndigoGross ()
 
 void IndigoGross::toString (Array<char> &str)
 {
-   GrossFormula::toString_Hill(gross, str);
+   MoleculeGrossFormula::toString_Hill(gross, str);
 }
 
 IndigoBaseMolecule::IndigoBaseMolecule (int type_) : IndigoObject(type_)
@@ -543,7 +543,7 @@ CEXPORT int indigoGrossFormula (int molecule)
       BaseMolecule &mol = self.getObject(molecule).getBaseMolecule();
       AutoPtr<IndigoGross> grossptr(new IndigoGross());
 
-      GrossFormula::collect(mol, grossptr->gross);
+      MoleculeGrossFormula::collect(mol, grossptr->gross);
       return self.addObject(grossptr.release());
    }
    INDIGO_END(-1)

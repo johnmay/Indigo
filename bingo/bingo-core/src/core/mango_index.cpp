@@ -110,8 +110,8 @@ void MangoIndex::prepare (Scanner &molfile, Output &output,
    output.writeArray(_cmf);
 
    // Save gross formula
-   GrossFormula::collect(mol, gross);
-   GrossFormula::toString(gross, _gross_str);
+   MoleculeGrossFormula::collect(mol, gross);
+   MoleculeGrossFormula::toString(gross, _gross_str);
 
    _counted_elems_str.clear();
    _counted_elem_counters.clear();

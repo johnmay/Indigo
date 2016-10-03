@@ -1,19 +1,19 @@
 /****************************************************************************
  * Copyright (C) 2009-2015 EPAM Systems
- * 
+ *
  * This file is part of Indigo toolkit.
- * 
+ *
  * This file may be distributed and/or modified under the terms of the
  * GNU General Public License version 3 as published by the Free Software
  * Foundation and appearing in the file LICENSE.GPL included in the
  * packaging of this file.
- * 
+ *
  * This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
  * WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  ***************************************************************************/
 
-#ifndef __gross_formula__
-#define __gross_formula__
+#ifndef __molecule_gross_formula__
+#define __molecule_gross_formula__
 
 namespace indigo {
 
@@ -26,15 +26,12 @@ namespace indigo {
 
 class BaseMolecule;
 
-class DLLEXPORT GrossFormula
+class DLLEXPORT MoleculeGrossFormula
 {
 public:
    static void collect (BaseMolecule &molecule, Array<int> &gross);
    static void toString (const Array<int> &gross, Array<char> &str);
    static void toString_Hill (const Array<int> &gross, Array<char> &str);
-   static void fromString (const char *str, Array<int> &gross);
-   static void fromString (Scanner &scanner, Array<int> &gross);
-
    static bool leq  (const Array<int> &gross1, const Array<int> &gross2);
    static bool geq  (const Array<int> &gross1, const Array<int> &gross2);
    static bool equal (const Array<int> &gross1, const Array<int> &gross2);

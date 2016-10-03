@@ -748,8 +748,8 @@ CEXPORT const char* mangoGross (const char *target_buf, int target_buf_len)
       loader.loadMolecule(target);
 
       QS_DEF(Array<int>, gross);
-      GrossFormula::collect(target, gross);
-      GrossFormula::toString(gross, self.buffer);
+      MoleculeGrossFormula::collect(target, gross);
+      MoleculeGrossFormula::toString(gross, self.buffer);
       self.buffer.push(0);
 
       return self.buffer.ptr();

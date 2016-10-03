@@ -445,8 +445,8 @@ static OCIString * _mangoGrossCalc (OracleEnv &env, MangoOracleContext &context,
    QS_DEF(Array<int>, gross);
    QS_DEF(Array<char>, gross_str);
 
-   GrossFormula::collect(target, gross);
-   GrossFormula::toString(gross, gross_str);
+   MoleculeGrossFormula::collect(target, gross);
+   MoleculeGrossFormula::toString(gross, gross_str);
 
    if (gross_str.size() == 1)
       // We can not return empty string to Oracle, as empty string is NULL to Oracle.
