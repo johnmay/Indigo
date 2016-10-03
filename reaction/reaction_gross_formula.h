@@ -17,7 +17,12 @@
 
 namespace indigo {
 
+#include <utility>
+
 #include "base_cpp/array.h"
+#include "base_cpp/obj_array.h"
+
+#include "reaction/base_reaction.h"
 
 #ifdef _WIN32
 #pragma warning(push)
@@ -29,9 +34,9 @@ class BaseReaction;
 class DLLEXPORT ReactionGrossFormula
 {
 public:
-   static void collect (BaseMolecule &molecule, Array<int> &gross);
-   static void toString (const Array<int> &gross, Array<char> &str);
-   static void toString_Hill (const Array<int> &gross, Array<char> &str);
+   static void collect (BaseReaction &rxn, std::pair<ObjArray<Array<int> > , ObjArray<Array<int> >> &gross);
+   static void toString (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> >> &gross, Array<char> &str);
+   static void toString_Hill (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> >> &gross, Array<char> &str);
 
 protected:
    struct _ElemCounter
@@ -40,8 +45,7 @@ protected:
       int counter;
    };
 
-   static void _toString (const Array<int> &gross, Array<char> &str,
-                          int (*cmp)(_ElemCounter &, _ElemCounter &, void *));
+   static void _toString (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> >> &gross, Array<char> &str);
 }
 
 #endif
