@@ -22,7 +22,7 @@
 #include "molecule/cmf_saver.h"
 #include "molecule/molfile_saver.h"
 #include "molecule/molecule_mass.h"
-#include "molecule/gross_formula.h"
+#include "molecule/molecule_gross_formula.h"
 #include "molecule/icm_saver.h"
 #include "molecule/molecule_cml_saver.h"
 

@@ -19,7 +19,7 @@
 
 #include "molecule/elements.h"
 #include "molecule/base_molecule.h"
-#include "molecule/gross_formula.h"
+#include "molecule/molecule_gross_formula.h"
 #include "molecule/molecule.h"
 #include "molecule/query_molecule.h"
 

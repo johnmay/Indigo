@@ -19,7 +19,7 @@
 #include "molecule/molecule.h"
 #include "molecule/molecule_auto_loader.h"
 #include "core/bingo_error.h"
-#include "molecule/gross_formula.h"
+#include "molecule/molecule_gross_formula.h"
 #include "molecule/molecule_mass.h"
 #include "core/bingo_context.h"
 #include "core/mango_matchers.h"

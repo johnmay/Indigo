@@ -23,7 +23,7 @@
 #include "molecule/molecule_tautomer_matcher.h"
 #include "molecule/molecule_exact_matcher.h"
 #include "molecule/molecule_mass.h"
-#include "molecule/gross_formula.h"
+#include "molecule/molecule_gross_formula.h"
 #include "oracle/ora_wrap.h"
 #include "oracle/ora_logger.h"
 #include "core/mango_matchers.h"

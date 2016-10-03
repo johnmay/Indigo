@@ -17,7 +17,7 @@
 #include "indigo_array.h"
 #include "molecule/molecule_auto_loader.h"
 #include "base_cpp/output.h"
-#include "molecule/gross_formula.h"
+#include "molecule/molecule_gross_formula.h"
 #include "molecule/molecule_mass.h"
 #include "molecule/query_molecule.h"
 #include "molecule/smiles_loader.h"

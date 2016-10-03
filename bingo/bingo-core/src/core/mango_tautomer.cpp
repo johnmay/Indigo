@@ -17,7 +17,7 @@
 #include "base_cpp/scanner.h"
 #include "molecule/molecule_fingerprint.h"
 #include "core/bingo_error.h"
-#include "molecule/gross_formula.h"
+#include "molecule/molecule_gross_formula.h"
 #include "molecule/molecule_tautomer_matcher.h"
 #include "molecule/molfile_saver.h"
 #include "core/bingo_context.h"

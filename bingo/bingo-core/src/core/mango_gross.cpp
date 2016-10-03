@@ -18,7 +18,7 @@
 #include "core/mango_index.h"
 #include "core/mango_matchers.h"
 #include "molecule/molecule_auto_loader.h"
-#include "molecule/gross_formula.h"
+#include "molecule/molecule_gross_formula.h"
 #include "molecule/elements.h"
 
 IMPL_ERROR(MangoGross, "gross formula");

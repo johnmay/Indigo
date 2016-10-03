@@ -32,6 +32,9 @@ public:
    static void collect (BaseMolecule &molecule, Array<int> &gross);
    static void toString (const Array<int> &gross, Array<char> &str);
    static void toString_Hill (const Array<int> &gross, Array<char> &str);
+   static void fromString (const char *str, Array<int> &gross);
+   static void fromString (Scanner &scanner, Array<int> &gross);
+
    static bool leq  (const Array<int> &gross1, const Array<int> &gross2);
    static bool geq  (const Array<int> &gross1, const Array<int> &gross2);
    static bool equal (const Array<int> &gross1, const Array<int> &gross2);
