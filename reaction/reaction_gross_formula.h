@@ -15,7 +15,6 @@
 #ifndef __reaction_gross_formula__
 #define __reaction_gross_formula__
 
-namespace indigo {
 
 #include <utility>
 
@@ -29,23 +28,19 @@ namespace indigo {
 #pragma warning(disable:4251)
 #endif
 
+namespace indigo {
+
+
 class BaseReaction;
 
 class DLLEXPORT ReactionGrossFormula
 {
 public:
-   static void collect (BaseReaction &rxn, std::pair<ObjArray<Array<int> > , ObjArray<Array<int> >> &gross);
-   static void toString (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> >> &gross, Array<char> &str);
-   static void toString_Hill (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> >> &gross, Array<char> &str);
-
-protected:
-   struct _ElemCounter
-   {
-      int elem;
-      int counter;
-   };
-
-   static void _toString (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> >> &gross, Array<char> &str);
+   static void collect (BaseReaction &rxn, std::pair<ObjArray<Array<int> > , ObjArray<Array<int> > > &gross);
+   static void toString_Hill (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> > > &gross, Array<char> &str);
+   // static void toString (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> > > &gross, Array<char> &str);
+};
+    
 }
 
 #endif

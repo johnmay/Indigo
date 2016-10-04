@@ -12,47 +12,68 @@
  * WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  ***************************************************************************/
 
-
 #include "reaction/reaction_gross_formula.h"
+#include "molecule/molecule_gross_formula.h"
+
+#include "base_cpp/output.h"
 
 using namespace indigo;
 
-void ReactionGrossFormula::collect (BaseReaction &rxn, std::pair<ObjArray<Array<int> > , ObjArray<Array<int> >> &gross)
+void ReactionGrossFormula::collect (BaseReaction &rxn, std::pair<ObjArray<Array<int> > , ObjArray<Array<int> > > &gross)
 {
     gross.first.clear();
+    gross.first.resize(rxn.reactantsCount());
     gross.second.clear();
-    
+    gross.second.resize(rxn.productsCount());
+    int array_index = 0;
+
     if (rxn.reactantsCount() > 0)
     {
-        gross.first.resize(rxn.reactantsCount() + rxn.catalystCount());
-        
-        for (i = rxn.reactantBegin(); i != rxn.reactantEnd(); i = rxn.reactantNext(i))
+        for (int i = rxn.reactantBegin(); i != rxn.reactantEnd(); i = rxn.reactantNext(i))
         {
-            // gross.first.
+            MoleculeGrossFormula::collect(rxn.getBaseMolecule(i), gross.first[array_index++]);
         }
     }
     if (rxn.productsCount() > 0)
     {
-        gross.second.resize(rxn.productsCount());
-        
-        for (i = rxn.productBegin(); i != rxn.productEnd(); i = rxn.productNext(i))
+        array_index = 0;
+        for (int i = rxn.productBegin(); i != rxn.productEnd(); i = rxn.productNext(i))
         {
-            // rxn.getMolecule(i)
+            MoleculeGrossFormula::collect(rxn.getBaseMolecule(i), gross.second[array_index++]);
         }
     }
-    if (rxn.catalystCount() > 0)
+}
+
+void ReactionGrossFormula::toString_Hill (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> > > &gross, Array<char> &str)
+{
+    ArrayOutput output(str);
+    Array<char> temp_str;
+    
+    bool first_written = false;
+    for (int i = 0; i < gross.first.size(); i++)
     {
-        for (i = rxn.catalystBegin(); i != rxn.catalystEnd(); i = rxn.catalystNext(i))
+        if (first_written)
         {
-            // rxn.getMolecule(i)
+            output.printf(" + ");
         }
+        MoleculeGrossFormula::toString_Hill(gross.first[i], temp_str);
+        output.printf("%s", temp_str.ptr());
+        first_written = true;
+    }
+    output.printf(" > ");
+    first_written = false;
+    for (int i = 0; i < gross.second.size(); i++)
+    {
+        if (first_written)
+        {
+            output.printf(" + ");
+        }
+        MoleculeGrossFormula::toString_Hill(gross.second[i], temp_str);
+        output.printf("%s", temp_str.ptr());
+        first_written = true;
     }
 }
 
-void ReactionGrossFormula::toString (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> >> &gross, Array<char> &str)
-{
-}
-
-void ReactionGrossFormula::toString_Hill (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> >> &gross, Array<char> &str)
-{
-}
+//void ReactionGrossFormula::toString_Hill (const std::pair<ObjArray<Array<int> >, ObjArray<Array<int> > > &gross, Array<char> &str)
+//{
+//}

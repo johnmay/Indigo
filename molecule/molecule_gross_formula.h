@@ -15,9 +15,10 @@
 #ifndef __molecule_gross_formula__
 #define __molecule_gross_formula__
 
-namespace indigo {
-
 #include "base_cpp/array.h"
+#include "base_cpp/scanner.h"
+
+namespace indigo {
 
 #ifdef _WIN32
 #pragma warning(push)
