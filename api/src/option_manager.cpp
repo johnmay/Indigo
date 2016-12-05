@@ -185,3 +185,121 @@ int OptionManager::_parseSize (const char *str, int& w, int& h)
       return -1;
    return 1;
 }
+
+ThreadSafeStaticObj<OptionCacher> indigo_option_cacher;
+
+DLLEXPORT OptionCacher & indigoGetOptionCacher ()
+{
+   return indigo_option_cacher.ref();
+}
+
+IMPL_ERROR(OptionCacher, "option cacher");
+
+OptionCacher::OptionCacher()
+{
+    
+}
+
+void OptionCacher::setOption (const char* name, int value)
+{
+    _intCache[name] = value;
+}
+void OptionCacher::setOption (const char* name, bool value)
+{
+    _boolCache[name] = value;
+}
+void OptionCacher::setOption (const char* name, float value)
+{
+    _floatCache[name] = value;
+}
+
+void OptionCacher::setOption (const char* name, float r, float g, float b)
+{
+    _colorCache[name] = std::make_tuple(r, g, b);
+}
+
+void OptionCacher::setOption (const char* name, int x, int y)
+{
+    _xyCache[name] = std::make_tuple(x, y);
+}
+
+void OptionCacher::setOption (const char* name, const char *value)
+{
+    _stringCache[name] = value;
+}
+
+void OptionCacher::getOption (const char* name, int& value) const
+{
+    auto it = _intCache.find(name);
+    if (it != _intCache.end()) 
+        value = it->second;
+    //else
+        //throw Error("Can not find option: \"%s\"", name);
+}
+
+void OptionCacher::getOption (const char* name, bool& value) const
+{
+    auto it = _boolCache.find(name);
+    if ( it != _boolCache.end() ) 
+        value = it->second;
+    else
+        throw Error("Can not find option \"%s\"", name);
+}
+
+void OptionCacher::getOption (const char* name, float& value) const
+{
+    auto it = _floatCache.find(name);
+    if ( it != _floatCache.end() ) 
+        value = it->second;
+    else
+        throw Error("Can not find option \"%s\"", name);
+}
+
+void OptionCacher::getOption (const char* name, float& r, float& g, float& b) const
+{
+    auto it = _colorCache.find(name);
+    if ( it != _colorCache.end() ) 
+    {
+        r = std::get<0>(it->second);
+        g = std::get<1>(it->second);
+        b = std::get<2>(it->second);
+    }
+    else
+        throw Error("Can not find option \"%s\"", name);
+}
+
+void OptionCacher::getOption (const char* name, int& x, int& y) const
+{
+    auto it = _xyCache.find(name);
+    if ( it != _xyCache.end() ) 
+    {
+        x = std::get<0>(it->second);
+        y = std::get<1>(it->second);
+    }
+    else
+        throw Error("Can not find option \"%s\"", name);
+}
+
+void OptionCacher::getOption (const char* name, char *value, int size) const
+{
+    auto it = _stringCache.find(name);
+    if ( it != _stringCache.end() ) 
+    {
+        if (it->second.size() > size)
+            throw Error("Invalid size of buffer for option: \"%s\"", name);
+        else
+            strcpy(value, it->second.c_str());        
+    }
+    else
+        throw Error("Can not find option \"%s\"", name);
+}
+
+void OptionCacher::resetOptions ()
+{
+   _intCache.clear();
+   _boolCache.clear();
+   _floatCache.clear();
+   _colorCache.clear();
+   _xyCache.clear();
+   _stringCache.clear();
+}

@@ -2026,6 +2026,19 @@ class Indigo(object):
         Indigo._lib.indigoNameToStructure.argtypes = [c_char_p, c_char_p]
         Indigo._lib.indigoResetOptions.restype = c_int
         Indigo._lib.indigoResetOptions.argtypes = None
+
+        Indigo._lib.indigoGetOption.restype = c_int
+        Indigo._lib.indigoGetOption.argtypes = [c_char_p, c_char_p, c_int]
+        Indigo._lib.indigoGetOptionInt.restype = c_int
+        Indigo._lib.indigoGetOptionInt.argtypes = [c_char_p, POINTER(c_int)]
+        Indigo._lib.indigoGetOptionBool.restype = c_int
+        Indigo._lib.indigoGetOptionBool.argtypes = [c_char_p, POINTER(c_int)]
+        Indigo._lib.indigoGetOptionFloat.restype = c_int
+        Indigo._lib.indigoGetOptionFloat.argtypes = [c_char_p, POINTER(c_float)]
+        Indigo._lib.indigoGetOptionColor.restype = c_int
+        Indigo._lib.indigoGetOptionColor.argtypes = [c_char_p, POINTER(c_float), POINTER(c_float), POINTER(c_float)]
+        Indigo._lib.indigoGetOptionXY.restype = c_int
+        Indigo._lib.indigoGetOptionXY.argtypes = [c_char_p, POINTER(c_int), POINTER(c_int)]
         
     def __del__(self):
         if hasattr(self, '_lib'):
@@ -2062,6 +2075,46 @@ class Indigo(object):
     def resetOptions(self):
         self._setSessionId()
         self._checkResult(Indigo._lib.indigoResetOptions())
+
+    def getOption(self, option):
+        result = ("\0"*1024).encode(ENCODE_ENCODING)
+        self._setSessionId()
+        self._checkResult(Indigo._lib.indigoGetOption(option.encode(ENCODE_ENCODING), result, c_int(1024)))
+        end = result.find("\0")
+        return result[0:end]
+
+    def getOptionInt(self, option):
+        result = c_int()
+        self._setSessionId()
+        self._checkResult(Indigo._lib.indigoGetOptionInt(option.encode(ENCODE_ENCODING), pointer(result)))
+        return result
+
+    def getOptionBool(self, option):
+        result = c_int()
+        self._setSessionId()
+        self._checkResult(Indigo._lib.indigoGetOptionBool(option.encode(ENCODE_ENCODING), pointer(result)))
+        return result
+
+    def getOptionFloat(self, option):
+        result = c_float()
+        self._setSessionId()
+        self._checkResult(Indigo._lib.indigoGetOptionFloat(option.encode(ENCODE_ENCODING), pointer(result)))
+        return result
+
+    def getOptionColor(self, option):
+        r = c_float()
+        g = c_float()
+        b = c_float()
+        self._setSessionId()
+        self._checkResult(Indigo._lib.indigoGetOptionColor(option.encode(ENCODE_ENCODING), pointer(r), pointer(g), pointer(b)))
+        return r, g, b
+
+    def getOptionXY(self, option):
+        x = c_int()
+        y = c_int()
+        self._setSessionId()
+        self._checkResult(Indigo._lib.indigoGetOptionXY(option.encode(ENCODE_ENCODING), pointer(x), pointer(y)))
+        return x, y
 
     def _checkResult(self, result):
         if result < 0:

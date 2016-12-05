@@ -78,6 +78,7 @@ CEXPORT int indigoDearomatize (int object)
      INDIGO_BEGIN                                                        \
      {                                                                   \
         indigoGetOptionManager().callOptionHandler##SUFFIX(name, value); \
+        indigoGetOptionCacher().setOption(name, value);                  \
         return 1;                                                        \
      }                                                                   \
      INDIGO_END(-1)                                                      \
@@ -93,6 +94,7 @@ CEXPORT int indigoSetOptionColor (const char *name, float r, float g, float b)
    INDIGO_BEGIN
    {
       indigoGetOptionManager().callOptionHandlerColor(name, r, g, b);
+      indigoGetOptionCacher().setOption(name, r, g, b);
       return 1;
    }
    INDIGO_END(-1)
@@ -102,6 +104,7 @@ CEXPORT int indigoSetOptionXY (const char *name, int x, int y)
    INDIGO_BEGIN
    {
       indigoGetOptionManager().callOptionHandlerXY(name, x, y);
+      indigoGetOptionCacher().setOption(name, x, y);
       return 1;
    }
    INDIGO_END(-1)
@@ -119,9 +122,55 @@ CEXPORT int indigoResetOptions ()
       {
          indigoGetOptionManager().callOptionHandlerVoid("reset-render-options");
       }
+      indigoGetOptionCacher().resetOptions();
       return 1;
    }
    INDIGO_END(-1)
+}
+
+#define INDIGO_GET_OPTION(SUFFIX, TYPE)                                  \
+  CEXPORT int indigoGetOption##SUFFIX (const char *name, TYPE* value)    \
+  {                                                                      \
+     INDIGO_BEGIN                                                        \
+     {                                                                   \
+        indigoGetOptionCacher().getOption(name, *value);                 \
+        return 1;                                                        \
+     }                                                                   \
+     INDIGO_END(-1)                                                      \
+  }
+
+CEXPORT int indigoGetOption (const char *name, char *value, int size)
+{
+    INDIGO_BEGIN                                                        
+    {                                                                   
+       indigoGetOptionCacher().getOption(name, value, size);
+       return 1;                                                        
+    }                                                                   
+    INDIGO_END(-1) 
+}
+
+INDIGO_GET_OPTION(Int, int);
+INDIGO_GET_OPTION(Bool, int);
+INDIGO_GET_OPTION(Float, float);
+
+CEXPORT int indigoGetOptionColor (const char *name, float *r, float *g, float *b)
+{
+    INDIGO_BEGIN
+    {
+       indigoGetOptionCacher().getOption(name, *r, *g, *b);
+       return 1;
+    }
+    INDIGO_END(-1)
+}
+
+CEXPORT int indigoGetOptionXY (const char *name, int *x, int *y)
+{
+    INDIGO_BEGIN
+    {
+       indigoGetOptionCacher().getOption(name, *x, *y);
+       return 1;
+    }
+    INDIGO_END(-1)
 }
 
 void _indigoCheckBadValence (Molecule &mol)

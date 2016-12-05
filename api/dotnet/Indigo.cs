@@ -197,6 +197,42 @@ namespace com.epam.indigo
             checkResult(_indigo_lib.indigoResetOptions());
         }
 
+        public void indigoGetOption (string name, char *value, int size)
+        {
+            setSessionID();
+            checkResult(_indigo_lib.indigoGetOption(name, value, size));
+        }
+
+        public void indigoGetOptionInt (string name, int *value)
+        {
+            setSessionID();
+            checkResult(_indigo_lib.indigoGetOptionInt(name, value));
+        }
+
+        public void indigoGetOptionBool (string name, int *value)
+        {
+            setSessionID();
+            checkResult(_indigo_lib.indigoGetOptionBool(name, value));
+        }
+
+        public void indigoGetOptionFloat (string name, float *value)
+        {
+            setSessionID();
+            checkResult(_indigo_lib.indigoGetOptionFloat(name, value));
+        }
+
+        public void indigoGetOptionColor (string name, Color value)
+        {
+            setSessionID();
+            checkResult(_indigo_lib.indigoGetOptionColor(name, &value.R, &value.G, &value.B));
+        }
+
+        public void indigoGetOptionXY (string name, int *x, int *y)
+        {
+            setSessionID();
+            checkResult(_indigo_lib.indigoGetOptionXY(name, x, y));
+        }
+
         public IndigoObject writeFile(String filename)
         {
             setSessionID();

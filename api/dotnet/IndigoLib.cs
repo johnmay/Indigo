@@ -23,6 +23,12 @@ namespace com.epam.indigo
         int indigoSetOptionColor(string name, float r, float g, float b);
         int indigoSetOptionXY(string name, int x, int y);
         int indigoResetOptions();
+        int indigoGetOption (const char *name, char *value, int size);
+        int indigoGetOptionInt (const char *name, int *value);
+        int indigoGetOptionBool (const char *name, int *value);
+        int indigoGetOptionFloat (const char *name, float *value);
+        int indigoGetOptionColor (const char *name, float *r, float *g, float *b);
+        int indigoGetOptionXY (const char *name, int *x, int *y);
 
         int indigoReadFile(string filename);
         int indigoReadString(string str);

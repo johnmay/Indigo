@@ -469,6 +469,36 @@ public class Indigo {
         checkResult(this, _lib.indigoResetOptions());
     }
 
+    public void indigoGetOption (String name, String value, int size){
+        setSessionID();
+        checkResult(this, _lib.indigoGetOption(name, value, size));
+    }
+
+    public void indigoGetOptionInt (String name, int value){
+        setSessionID();
+        checkResult(this, _lib.indigoGetOptionInt(name, value));
+    }
+    
+    public void indigoGetOptionBool (String name, int value){
+        setSessionID();
+        checkResult(this, _lib.indigoGetOptionBool(name, value));
+    }
+    
+    public void indigoGetOptionFloat (String name, float value){
+        setSessionID();
+        checkResult(this, _lib.indigoGetOptionFloat(name, value));
+    }
+    
+    public void indigoGetOptionColor (String name, float r, float g, float b){
+        setSessionID();
+        checkResult(this, _lib.indigoGetOptionColor(name, r, g, b));
+    }
+    
+    public void indigoGetOptionXY (String name, int x, int y){
+        setSessionID();
+        checkResult(this, _lib.indigoGetOptionXY(name, x, y));
+    }
+    
     public IndigoObject writeFile(String filename) {
         setSessionID();
         return new IndigoObject(this, checkResult(this, _lib.indigoWriteFile(filename)));

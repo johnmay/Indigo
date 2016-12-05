@@ -59,6 +59,7 @@ namespace indigo
    typedef ObjArray<PropertiesMap> MonomersProperties;
 }
 extern DLLEXPORT OptionManager & indigoGetOptionManager ();
+extern DLLEXPORT OptionCacher & indigoGetOptionCacher ();
 
 class DLLEXPORT IndigoObject
 {

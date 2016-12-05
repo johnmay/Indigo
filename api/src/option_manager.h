@@ -19,6 +19,8 @@
 #include "base_cpp/os_sync_wrapper.h"
 
 #include <sstream>
+#include <map>
+#include <tuple>  
 
 using namespace indigo;
 
@@ -72,7 +74,7 @@ public:
    void callOptionHandlerVoid(const char* name);
    void callOptionHandler (const char* name, const char* value);
    int nOptions () const;
-   
+      
    OsLock lock;
 protected:
    enum OPTION_TYPE {OPTION_STRING, OPTION_INT, OPTION_BOOL, OPTION_FLOAT, OPTION_COLOR, OPTION_XY, OPTION_VOID};
@@ -92,7 +94,7 @@ protected:
    RedBlackStringMap<optf_color_t, false> hMapColor;
    RedBlackStringMap<optf_xy_t, false> hMapXY;
    RedBlackStringMap<optf_void_t, false> hMapVoid;
-   
+      
    template <typename T> 
    void callOptionHandlerT (const char *name, T arg)
    {
@@ -105,6 +107,43 @@ protected:
 
 private:
    OptionManager (const OptionManager&);
+};
+
+class OptionCacher {
+public:
+   OptionCacher ();
+   
+   void setOption (const char *name, int value);
+   void setOption (const char *name, bool value);
+   void setOption (const char *name, float value);
+   void setOption (const char *name, float r, float g, float b);
+   void setOption (const char *name, int x, int y);
+   void setOption (const char *name, const char *value);
+   
+   void getOption (const char *name, int &value) const;
+   void getOption (const char *name, bool &value) const;
+   void getOption (const char *name, float &value) const;
+   void getOption (const char *name, float &r, float &g, float &b) const;
+   void getOption (const char *name, int &x, int &y) const;
+   void getOption (const char *name, char *value, int size) const;
+   
+   void resetOptions ();
+   
+   DECL_ERROR;
+   
+private:
+
+   typedef std::tuple<float, float, float> color;
+   typedef std::tuple<int, int> XY;
+   
+   std::map<std::string, int> _intCache;
+   std::map<std::string, bool> _boolCache;
+   std::map<std::string, float> _floatCache;
+   std::map<std::string, color> _colorCache;
+   std::map<std::string, XY> _xyCache;
+   std::map<std::string, std::string> _stringCache;
+   
+   OptionCacher (const OptionCacher&);
 };
 
 #endif //__otion_manager_h__
