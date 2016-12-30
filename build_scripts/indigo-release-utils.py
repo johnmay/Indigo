@@ -37,6 +37,7 @@ parser.add_option('--config', default="Release", help='project configuration')
 parser.add_option('--nobuild', default=False, action="store_true", help='configure without building', dest="nobuild")
 parser.add_option('--clean', default=False, action="store_true", help='delete all the build data', dest="clean")
 parser.add_option('--preset', type="choice", dest="preset", choices=list(presets.keys()), help='build preset %s' % (str(presets.keys())))
+parser.add_option('--with-static', action='store_true', help='Build Indigo static libraries', default=False, dest='withStatic')
 
 (args, left_args) = parser.parse_args()
 if len(left_args) > 0:
@@ -52,6 +53,9 @@ if not args.generator:
 cur_dir = os.path.abspath(os.path.dirname(__file__))
 root = os.path.normpath(os.path.join(cur_dir, ".."))
 project_dir = os.path.join(cur_dir, "indigo-utils")
+
+if not args.withStatic:
+        args.params += ' -DNO_STATIC=TRUE'
 
 if args.generator.find("Unix Makefiles") != -1:
     args.params += " -DCMAKE_BUILD_TYPE=" + args.config
