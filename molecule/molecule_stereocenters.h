@@ -41,7 +41,7 @@ public:
       ATOM_ABS = 4
    };
 
-   explicit MoleculeStereocenters ();
+   explicit MoleculeStereocenters (BaseMolecule& mol);
 
    void clear ();
 
@@ -173,7 +173,7 @@ protected:
 
    int _getDirection (BaseMolecule &mol, int atom_from, int atom_to, bool bidirectional_mode);
 
-   BaseMolecule & _getMolecule() const;
+   BaseMolecule & _mol;
 
 private:
    MoleculeStereocenters (const MoleculeStereocenters &); // no implicit copy
