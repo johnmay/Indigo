@@ -36,6 +36,8 @@ public:
       CIS = 1,
       TRANS = 2
    };
+   MoleculeCisTrans(BaseMolecule&);
+   
 
    void clear ();
    void build (int *exclude_bonds);
@@ -94,7 +96,7 @@ public:
 
 protected:
 
-   BaseMolecule & _getMolecule ();
+   BaseMolecule & _mol;
    
    struct _Bond
    {

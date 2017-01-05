@@ -32,7 +32,10 @@ using namespace indigo;
 
 IMPL_ERROR(BaseMolecule, "molecule");
 
-BaseMolecule::BaseMolecule (): stereocenters(*this)
+BaseMolecule::BaseMolecule (): 
+stereocenters(*this), 
+cis_trans(*this), 
+allene_stereo(*this)
 {
    _edit_revision = 0;
 }

@@ -30,7 +30,7 @@ class BaseMolecule;
 class DLLEXPORT MoleculeAlleneStereo
 {
 public:
-   MoleculeAlleneStereo ();
+   MoleculeAlleneStereo (BaseMolecule&);
 
    void clear ();
 
@@ -71,16 +71,16 @@ protected:
       //              [2] and [3] are connected to the "right" neighbor.
       //              [1] and [3] may be -1 (implicit H)
       //              [0] and [2] are never -1
+      // parity = 1  if [2]-nd substituent is rotated CCW w.r.t. [0]-th
       int subst[4];
 
-      // parity = 1  if [2]-nd substituent is rotated CCW w.r.t. [0]-th
       //             substituent when we look at it from "left" to "right"
       // parity = 2  if it is rotated CW
       int parity;
    };
 
 
-   BaseMolecule & _getMolecule();
+   BaseMolecule& _mol;
    bool _isAlleneCenter (BaseMolecule &mol, int idx, _Atom &atom, int *sensible_bonds_out);
 
    RedBlackMap<int, _Atom> _centers;
