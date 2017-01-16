@@ -77,6 +77,48 @@ void OptionManager::callOptionHandlerXY (const char* name, int x, int y) {
    hMapXY.at(name)(x, y);
 }
 
+void OptionManager::GetOptionValueInt (const char* name, int& value)
+{
+   CHECK_OPT_DEFINED(name);
+   CHECK_OPT_TYPE(name, OPTION_INT);
+   hMapGetInt.at(name)(value);
+}
+
+void OptionManager::GetOptionValueStr (const char* name, char* value, int len)
+{
+    CHECK_OPT_DEFINED(name);
+    CHECK_OPT_TYPE(name, OPTION_STRING);
+    hMapGetStr.at(name)(value, len);
+}
+
+void OptionManager::GetOptionValueBool (const char* name, int& value)
+{
+    CHECK_OPT_DEFINED(name);
+    CHECK_OPT_TYPE(name, OPTION_BOOL);
+    hMapGetBool.at(name)(value);
+}
+
+void OptionManager::GetOptionValueFloat (const char* name, float& value)
+{
+    CHECK_OPT_DEFINED(name);
+    CHECK_OPT_TYPE(name, OPTION_FLOAT);
+    hMapGetFloat.at(name)(value);
+}
+
+void OptionManager::GetOptionValueColor (const char* name, float& r, float& g, float& b)
+{
+    CHECK_OPT_DEFINED(name);
+    CHECK_OPT_TYPE(name, OPTION_COLOR);
+    hMapGetColor.at(name)(r, g, b);
+}
+
+void OptionManager::GetOptionValueXY (const char* name, int& x, int& y)
+{
+    CHECK_OPT_DEFINED(name);
+    CHECK_OPT_TYPE(name, OPTION_XY);
+    hMapGetXY.at(name)(x, y);
+}
+
 bool OptionManager::hasOptionHandler (const char* name) {
    return typeMap.find(name);
 }
